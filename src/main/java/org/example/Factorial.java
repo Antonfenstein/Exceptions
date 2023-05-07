@@ -7,17 +7,24 @@ public class Factorial {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter number");
-        int number = scanner.nextInt();
+        String input = scanner.nextLine();
+        int number = Integer.parseInt(input);
         try {
-            int factorial = 1;
-            for (int i = number; i >= 1; i--) {
-                factorial = factorial * i;
-            }
+            int factorial = Factorial.getFactorial(number);
             System.out.println(number + " factorial equals " + factorial);
-        } catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             System.out.println("Error: Wrong input format");
+        } catch (StackOverflowError e) {
+            System.out.println("Error: The number is too big for calculation or negative");
         } finally {
             scanner.close();
         }
-}
+    }
+
+    public static int getFactorial(int number) {
+        if (number == 0)
+            return 1;
+        else
+            return (number * getFactorial(number - 1));
+    }
 }
